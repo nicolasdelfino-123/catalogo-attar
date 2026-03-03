@@ -25,7 +25,7 @@ const writeGridState = (key, state) => {
 };
 
 const SLUG_TO_NAME = {
-  "perfumes-masculinos": "Perfumes masculinos",
+  "perfumes-masculinos": "Perfumes Masculinos",
   "femeninos": "Femeninos",
   "unisex": "Unisex",
   "cremas": "Cremas",

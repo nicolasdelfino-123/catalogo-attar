@@ -57,7 +57,7 @@ export default function InicioNuevo() {
                 {/* Contenido */}
                 <div className="relative z-10 px-6 max-w-3xl">
                     <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 tracking-wide">
-                        Perfumes Árabes
+                        Fragancias Orientales
                     </h1>
 
                     <p className="text-lg md:text-xl text-gray-200 mb-6">

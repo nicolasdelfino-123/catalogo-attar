@@ -52,8 +52,8 @@ const LEGACY_CATEGORY_NAME_TO_CURRENT = {
     "Pods Recargables": "Femeninos",
     "Líquidos": "Unisex",
     "Resistencias": "Cremas",
-    "Celulares": "Body splash victoria secret",
-    "Perfumes": "Perfumes masculinos",
+    "Celulares": "Body Splash Victoria Secret",
+    "Perfumes": "Perfumes Masculinos",
 };
 
 const getDisplayCategoryName = (product) => {
@@ -353,35 +353,38 @@ export default function ProductDetailNuevo() {
     ========================= */
 
     return (
-        <div className="min-h-screen bg-gray-50 py-8">
+        <div className="min-h-screen bg-stone-100 py-8">
             <div className="max-w-6xl mx-auto px-4">
 
                 {/* VOLVER */}
                 <button
                     onClick={handleBack}
-                    className="mb-6 text-purple-600 hover:text-purple-700"
+                    className="mb-6 px-4 py-2 rounded-md bg-[#232325] text-white text-sm font-medium hover:bg-[#1c1c1e] transition"
                 >
                     ← Volver
                 </button>
 
-                <div className="bg-white rounded-lg shadow-lg p-8 grid md:grid-cols-2 gap-8">
+                <div className="bg-stone-50 border border-stone-200 rounded-2xl shadow-sm p-4 sm:p-8 grid md:grid-cols-2 gap-8">
 
                     {/* IMAGEN */}
                     <div>
-                        <img
-                            src={toAbsUrl(activeImg) || sinImagen}
-                            className="w-full rounded-lg"
-                            onError={e => (e.currentTarget.src = sinImagen)}
-                        />
+                        <div className="bg-white border border-stone-200 rounded-xl p-4 sm:p-6">
+                            <img
+                                src={toAbsUrl(activeImg) || sinImagen}
+                                className="w-full object-contain"
+                                onError={e => (e.currentTarget.src = sinImagen)}
+                            />
+                        </div>
 
                         {gallery.length > 1 && (
-                            <div className="flex gap-2 mt-3">
+                            <div className="flex gap-2 mt-3 flex-wrap">
                                 {gallery.map((u, i) => (
                                     <img
                                         key={i}
                                         src={toAbsUrl(u)}
                                         onClick={() => setActiveImg(u)}
-                                        className="w-16 h-16 object-contain border cursor-pointer"
+                                        className={`w-16 h-16 object-contain border rounded p-1 cursor-pointer transition ${activeImg === u ? "border-black" : "border-stone-300 hover:border-stone-500"
+                                            }`}
                                     />
                                 ))}
                             </div>
@@ -390,20 +393,20 @@ export default function ProductDetailNuevo() {
 
                     {/* INFO */}
                     <div>
-                        <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
+                        <h1 className="text-3xl font-semibold text-stone-900 mb-4">{product.name}</h1>
                         {product.brand && (
-                            <p className="text-lg text-purple-600 mb-4">Marca: {product.brand}</p>
+                            <p className="text-base text-stone-600 mb-4 uppercase tracking-wide">Marca: {product.brand}</p>
                         )}
 
 
-                        <div className="text-4xl font-bold text-purple-600 mb-4">
+                        <div className="text-4xl font-semibold text-black mb-4">
                             {finalPrice !== null
                                 ? `${pricePrefix}${Number(finalPrice).toLocaleString("es-AR")}`
                                 : "Consultar"}
                         </div>
                         {sizeOptions.length > 0 && (
                             <div className="mb-4">
-                                <p className="text-sm font-medium text-gray-700 mb-2">
+                                <p className="text-xs text-stone-600 uppercase tracking-wide mb-2">
                                     Tamaño: {selectedSize?.ml}ml
                                 </p>
                                 <div className="flex flex-wrap gap-2">
@@ -414,9 +417,9 @@ export default function ProductDetailNuevo() {
                                                 key={opt.ml}
                                                 type="button"
                                                 onClick={() => setSelectedSizeMl(String(opt.ml))}
-                                                className={`px-3 py-1 rounded-full text-xs border ${active
-                                                    ? "border-gray-900 text-gray-900 font-semibold"
-                                                    : "border-gray-300 text-gray-600 hover:border-gray-400"
+                                                className={`px-3 py-1 rounded-full text-xs border transition ${active
+                                                    ? "bg-black text-white border-black"
+                                                    : "border-stone-300 text-stone-600 hover:border-black"
                                                     }`}
                                             >
                                                 {opt.ml}ml
@@ -427,10 +430,10 @@ export default function ProductDetailNuevo() {
                             </div>
                         )}
                         <div className="mb-6">
-                            <p className="text-sm text-gray-500">Categoría: {displayCategoryName || "Sin categoría"}</p>
+                            <p className="text-xs text-stone-500 uppercase tracking-widest">Categoría: {displayCategoryName || "Sin categoría"}</p>
                         </div>
                         {product.description && (
-                            <p className="text-gray-700 mb-4 leading-relaxed">
+                            <p className="text-stone-700 mb-4 leading-relaxed">
                                 {product.description}
                             </p>
                         )}
@@ -438,7 +441,7 @@ export default function ProductDetailNuevo() {
                         {/* selector sabores */}
                         {flavors.length > 0 && (
                             <select
-                                className="w-full border rounded px-3 py-2 mb-4"
+                                className="w-full border border-stone-300 rounded-md px-3 py-2 mb-4 bg-white focus:outline-none focus:ring-1 focus:ring-black"
                                 value={selectedFlavor}
                                 onChange={(e) => {
                                     setSelectedFlavor(e.target.value);
@@ -458,9 +461,17 @@ export default function ProductDetailNuevo() {
 
                         {/* cantidad */}
                         <div className="flex items-center gap-3 mb-4">
-                            <button onClick={() => setQuantity(Math.max(1, quantity - 1))}>-</button>
-                            <span>{quantity}</span>
                             <button
+                                type="button"
+                                className="w-9 h-9 rounded bg-stone-100 hover:bg-stone-200 border border-stone-200 flex items-center justify-center text-lg"
+                                onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                            >
+                                -
+                            </button>
+                            <span className="min-w-[36px] text-center font-medium text-stone-800">{quantity}</span>
+                            <button
+                                type="button"
+                                className="w-9 h-9 rounded bg-stone-100 hover:bg-stone-200 border border-stone-200 flex items-center justify-center text-lg"
                                 onClick={() =>
                                     setQuantity(Math.min(getAvailableStock(), quantity + 1))
                                 }
@@ -472,22 +483,25 @@ export default function ProductDetailNuevo() {
                         <button
                             onClick={handleAddToCart}
                             disabled={getAvailableStock() <= 0}
-                            className="w-full bg-purple-600 text-white py-3 rounded-lg font-semibold"
+                            className={`w-full py-3 rounded-md font-medium text-sm tracking-wide transition-all duration-300 ${getAvailableStock() <= 0
+                                ? "bg-stone-300 text-stone-500 cursor-not-allowed"
+                                : "bg-black text-white hover:bg-stone-800"
+                                }`}
                         >
                             {getAvailableStock() <= 0 ? "Sin stock" : "Agregar al carrito"}
                         </button>
 
                         {/* TABS */}
-                        <div className="mt-8 border-b flex gap-6">
+                        <div className="mt-8 border-b border-stone-200 flex gap-6">
                             <button
                                 onClick={() => setActiveTab("desc")}
-                                className={activeTab === "desc" ? "font-semibold border-b-2 border-purple-600 pb-2" : ""}
+                                className={activeTab === "desc" ? "font-semibold border-b-2 border-black pb-2 text-black" : "pb-2 text-stone-500 hover:text-stone-700"}
                             >
                                 Descripción
                             </button>
                             <button
                                 onClick={() => setActiveTab("info")}
-                                className={activeTab === "info" ? "font-semibold border-b-2 border-purple-600 pb-2" : ""}
+                                className={activeTab === "info" ? "font-semibold border-b-2 border-black pb-2 text-black" : "pb-2 text-stone-500 hover:text-stone-700"}
                             >
                                 Información adicional
                             </button>
@@ -510,7 +524,7 @@ export default function ProductDetailNuevo() {
                                         <button
                                             type="button"
                                             onClick={() => setDescExpanded((v) => !v)}
-                                            className="mt-2 text-purple-600 hover:text-purple-800 text-sm flex items-center gap-1"
+                                            className="mt-2 text-stone-700 hover:text-black text-sm flex items-center gap-1"
                                         >
                                             {descExpanded ? (
                                                 <>

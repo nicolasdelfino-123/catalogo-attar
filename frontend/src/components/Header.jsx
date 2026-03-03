@@ -8,6 +8,7 @@ import logo22 from '@/assets/logo-22.png' */
 import zarpados from '@/assets/zarpados-22.png'
 import { withWholesale } from "../utils/navigation.js";
 import { Search, ShoppingBag } from "lucide-react";
+import shatha from '@/assets/shathasi.png'
 
 const API = import.meta.env.VITE_BACKEND_URL?.replace(/\/+$/, "") || "";
 
@@ -233,11 +234,11 @@ export default function Header() {
 
   // Categorías para el dropdown (coinciden con las del backend)
   const productCategories = [
-    { name: "Perfumes masculinos", route: "/categoria/perfumes-masculinos", icon: "🕴️" },
+    { name: "Perfumes Masculinos", route: "/categoria/perfumes-masculinos", icon: "🕴️" },
     { name: "Femeninos", route: "/categoria/femeninos", icon: "💃" },
     { name: "Unisex", route: "/categoria/unisex", icon: "✨" },
     { name: "Cremas", route: "/categoria/cremas", icon: "🧴" },
-    { name: "Body splash victoria secret", route: "/categoria/body-splash-victoria-secret", icon: "🌸" },
+    { name: "Body Splash Victoria Secret", route: "/categoria/body-splash-victoria-secret", icon: "🌸" },
   ];
 
   const goToContact = (e) => {
@@ -292,7 +293,7 @@ export default function Header() {
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               aria-label="Abrir menú"
-              className="bg-transparent border-0 p-0 m-0"
+              className="bg-transparent border-0 p-0 m-0 text-white hover:text-gray-200"
               style={{ backgroundColor: 'transparent' }}
             >
               <svg className="w-5 h-5 stroke-[1.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -304,7 +305,16 @@ export default function Header() {
               </svg>
             </button>
           </div>
-
+          {/* Logo centrado */}
+          <div className="absolute left-1/2 -translate-x-1/2">
+            <Link to={withWholesale("/inicio")} aria-label="Ir al inicio">
+              <img
+                src={shatha}
+                alt="Shatha"
+                className="h-[110px] md:h-[95px] object-contain transition-all duration-300"
+              />
+            </Link>
+          </div>
           {/* Logo */}
           {/*   <div className="flex-shrink-0 md:mr-auto">
             <Link to={withWholesale("/inicio")}
@@ -334,14 +344,14 @@ export default function Header() {
 
           {/* Navigation - Desktop */}
           <nav className="hidden md:flex space-x-10 font-serif tracking-wider text-sm uppercase">
-            <Link to={withWholesale("/inicio")} className="hover:text-purple-400 transition-colors text-gray-300">Inicio</Link>
+            <Link to={withWholesale("/inicio")} className="text-gray-300 hover:text-amber-300 transition-all duration-300">Inicio</Link>
 
 
             {/* Dropdown de Productos */}
             <div className="relative" ref={productsDropdownRef}>
               <button
                 onClick={() => setProductsDropdownOpen(!productsDropdownOpen)}
-                className="flex items-center text-gray-300 hover:text-purple-400 bg-transparent p-0 border-0 rounded-none appearance-none focus:outline-none focus:ring-0 hover:bg-transparent active:bg-transparent uppercase"
+                className="flex items-center text-gray-300 hover:text-amber-300 transition-all duration-300 bg-transparent p-0 border-0 rounded-none appearance-none focus:outline-none focus:ring-0 hover:bg-transparent active:bg-transparent uppercase"
                 style={{ backgroundColor: 'transparent', boxShadow: 'none' }}
               >
 

@@ -10,7 +10,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			cart: [],
 			user: null,
 			loading: false,
-			categories: ["Perfumes masculinos", "Femeninos", "Unisex", "Cremas", "Body splash victoria secret"],
+			categories: ["Perfumes Masculinos", "Femeninos", "Unisex", "Cremas", "Body Splash Victoria Secret"],
 			orders: [],
 			userAddress: { address: "", phone: "" },
 			updateStatusMsg: "",

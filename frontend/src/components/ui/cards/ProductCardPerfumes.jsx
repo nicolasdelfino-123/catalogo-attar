@@ -39,6 +39,33 @@ const parsePrice = (value) => {
     return Number.isFinite(n) ? n : null;
 };
 
+const CATEGORY_ID_TO_NAME = {
+    1: "Perfumes Masculinos",
+    2: "Femeninos",
+    3: "Unisex",
+    4: "Cremas",
+    5: "Body Splash Victoria Secret",
+    // compatibilidad de productos viejos
+    6: "Perfumes Masculinos",
+};
+
+const LEGACY_CATEGORY_NAME_TO_CURRENT = {
+    "Vapes Desechables": "Perfumes masculinos",
+    "Pods Recargables": "Femeninos",
+    "Líquidos": "Unisex",
+    "Resistencias": "Cremas",
+    "Celulares": "Body Splash Victoria Secret",
+    "Perfumes": "Perfumes masculinos",
+};
+
+const getDisplayCategoryName = (product) => {
+    const byId = CATEGORY_ID_TO_NAME[Number(product?.category_id)];
+    if (byId) return byId;
+    const raw = String(product?.category_name || "").trim();
+    if (!raw) return "Sin categoría";
+    return LEGACY_CATEGORY_NAME_TO_CURRENT[raw] || raw;
+};
+
 export default function ProductCardPerfumes({ product, returnTo, isGrid = true }) {
 
     const [quantity, setQuantity] = useState(1);
@@ -153,6 +180,7 @@ export default function ProductCardPerfumes({ product, returnTo, isGrid = true }
         ? (wholesalePrice > 0 ? wholesalePrice : null)
         : (retailPrice > 0 ? retailPrice : null);
     const pricePrefix = isWholesale ? "US$" : "$";
+    const displayCategoryName = getDisplayCategoryName(product);
 
     const stock = Number(product?.stock ?? 0);
     const hasStock = stock > 0;
@@ -218,80 +246,58 @@ export default function ProductCardPerfumes({ product, returnTo, isGrid = true }
         navigate(`${prefix}/product/${product.id}`, { state });
     };
     return (
-        <div className="bg-white rounded-2xl shadow-sm hover:shadow-lg transition overflow-hidden flex flex-col h-full">
+        <div className="bg-stone-50 rounded-xl border border-stone-200 hover:border-stone-300 transition-all duration-300 flex flex-col h-full">
 
             {/* Imagen */}
             <div
                 onClick={handleProductClick}
-                className="aspect-square bg-gray-100 overflow-hidden cursor-pointer"
+                className="aspect-square bg-white flex items-center justify-center p-4 sm:p-6 cursor-pointer overflow-hidden"
             >
                 <img
                     src={toAbsUrl(product?.image_url) || "/sin_imagen.jpg"}
                     alt={product?.name || "Producto"}
-                    className="w-full h-full object-cover hover:scale-105 transition"
+                    className="max-h-full object-contain hover:scale-105 transition duration-500 ease-out"
                 />
             </div>
 
             {/* CONTENIDO */}
-            <div className="p-4 flex flex-col flex-grow">
+            <div className="p-3 sm:p-5 flex flex-col flex-grow">
 
-                {/* selector sabores */}
-                {/*  {product.flavor_enabled && product.flavors?.length > 0 && (
-                    <select
-                        value={selectedFlavor}
-                        onChange={(e) => setSelectedFlavor(e.target.value)}
-                        className="mb-2 border rounded-md px-2 py-1 text-sm"
-                    >
-                        <option value="">Elegir opción</option>
-                        {product.flavors.map((f) => (
-                            <option key={f}>{f}</option>
-                        ))}
-                    </select>
-                )} */}
-
-                {/* nombre */}
+                {/* Nombre */}
                 <h3
                     onClick={handleProductClick}
-                    className="font-semibold text-gray-900 cursor-pointer hover:text-purple-600 line-clamp-2"
+                    className="text-sm sm:text-lg font-medium text-stone-900 tracking-wide cursor-pointer hover:text-black line-clamp-2"
                 >
                     {product.name}
                 </h3>
 
-                {/* categoría */}
-                <p className="text-xs text-gray-400 mt-1">
-                    {product.category_name}
+                {/* Categoría */}
+                <p className="text-[10px] sm:text-xs text-stone-500 uppercase tracking-widest mt-1">
+                    {displayCategoryName}
                 </p>
-                {hasVolume && (
-                    <p className="text-xs text-gray-500 mt-1">
-                        Tamaño: {selectedSize?.ml}ml
-                    </p>
-                )}
 
-                {/* precio */}
-                <div className="mt-2">
+                {/* Precio */}
+                <div className="mt-2 sm:mt-4">
                     {finalPrice !== null ? (
-                        <span className="text-xl font-bold text-gray-900">
+                        <span className="text-lg sm:text-2xl font-semibold text-black">
                             {pricePrefix}{finalPrice.toLocaleString("es-AR")}
                         </span>
                     ) : (
-                        <span className="text-sm text-gray-400 italic">
+                        <span className="text-xs text-stone-400 italic">
                             Consultar
                         </span>
                     )}
-
-                    {isWholesale && finalPrice !== null && (
-                        <div className="text-xs text-gray-500">
-                            Precio mayorista
-                        </div>
-                    )}
                 </div>
 
-                {/* acciones */}
-                <div className="mt-4 pt-3 border-t border-gray-100 mt-auto">
+                {/* Acciones */}
+                <div className="mt-3 sm:mt-6 pt-3 sm:pt-4 border-t border-stone-200 mt-auto">
+
                     {hasVolume && (
-                        <div className="flex items-center justify-between mb-2">
-                            <span className="text-sm text-gray-600 font-medium">Tamaño:</span>
-                            <div className="flex flex-wrap justify-end gap-1 max-w-[65%]">
+                        <div className="flex items-center justify-between mb-2 sm:mb-3">
+                            <span className="text-[10px] sm:text-xs text-stone-600 uppercase tracking-wide">
+                                Tamaño
+                            </span>
+                            <div className="flex flex-wrap justify-end gap-1 sm:gap-2 max-w-[65%]">
                                 {sizeOptions.map((opt) => {
                                     const active = String(opt.ml) === String(selectedSizeMl);
                                     return (
@@ -299,9 +305,9 @@ export default function ProductCardPerfumes({ product, returnTo, isGrid = true }
                                             key={opt.ml}
                                             type="button"
                                             onClick={() => setSelectedSizeMl(String(opt.ml))}
-                                            className={`px-2 py-1 rounded-full text-xs border ${active
-                                                    ? "border-gray-900 text-gray-900 font-semibold"
-                                                    : "border-gray-300 text-gray-600 hover:border-gray-400"
+                                            className={`px-2 py-[3px] sm:px-3 sm:py-1 text-[10px] sm:text-xs rounded-full border transition ${active
+                                                ? "bg-black text-white border-black"
+                                                : "border-stone-300 text-stone-600 hover:border-black"
                                                 }`}
                                         >
                                             {opt.ml}ml
@@ -313,16 +319,16 @@ export default function ProductCardPerfumes({ product, returnTo, isGrid = true }
                     )}
 
                     {/* Cantidad */}
-                    <div className="flex items-center justify-between mb-2">
-                        <span className="text-sm text-gray-600 font-medium">
-                            Cantidad:
+                    <div className="flex items-center justify-between mb-2 sm:mb-4">
+                        <span className="text-[10px] sm:text-xs text-stone-600 uppercase tracking-wide">
+                            Cantidad
                         </span>
 
                         <select
                             value={quantity}
                             onChange={(e) => setQuantity(Number(e.target.value))}
                             disabled={!hasStock}
-                            className="w-20 border border-gray-300 rounded-md px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 disabled:bg-gray-100"
+                            className="w-14 sm:w-20 border border-stone-300 rounded-md px-1 sm:px-2 py-1 text-xs sm:text-sm focus:outline-none focus:ring-1 focus:ring-black disabled:bg-stone-100"
                         >
                             {[...Array(Math.min(stock || 1, 10))].map((_, i) => (
                                 <option key={i + 1}>{i + 1}</option>
@@ -330,14 +336,13 @@ export default function ProductCardPerfumes({ product, returnTo, isGrid = true }
                         </select>
                     </div>
 
-                    {/* Botón SIEMPRE abajo */}
+                    {/* Botón */}
                     <button
                         onClick={handleAddToCart}
                         disabled={!hasStock}
-                        className={`w-full py-2 rounded-lg font-semibold text-sm transition
-        ${hasStock
-                                ? "bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white hover:opacity-90"
-                                : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                        className={`w-full py-2 sm:py-3 rounded-md font-medium text-xs sm:text-sm tracking-wide transition-all duration-300 ${hasStock
+                            ? "bg-black text-white hover:bg-stone-800"
+                            : "bg-stone-300 text-stone-500 cursor-not-allowed"
                             }`}
                     >
                         {hasStock ? "Agregar al carrito" : "Sin stock"}

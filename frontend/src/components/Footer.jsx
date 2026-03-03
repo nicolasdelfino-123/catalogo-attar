@@ -8,11 +8,11 @@ const link = `https://wa.me/${phone}?text=${message}`;
 
 // En tu Footer.jsx — mini mapa label/slug para no volverte loco
 const FOOTER_CATEGORIES = [
-    { label: "Perfumes masculinos", slug: "perfumes-masculinos" },
+    { label: "Perfumes Masculinos", slug: "perfumes-masculinos" },
     { label: "Femeninos", slug: "femeninos" },
     { label: "Unisex", slug: "unisex" },
     { label: "Cremas", slug: "cremas" },
-    { label: "Body splash victoria secret", slug: "body-splash-victoria-secret" },
+    { label: "Body Splash Victoria Secret", slug: "body-splash-victoria-secret" },
 ];
 
 const Footer = () => {

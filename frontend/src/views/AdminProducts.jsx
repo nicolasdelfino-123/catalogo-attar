@@ -8,11 +8,11 @@ import { Link, useNavigate } from "react-router-dom";
 // ----- Helpers de categorías -----
 // ----- Helpers de categorías -----
 const CATEGORY_NAME_TO_ID = {
-    "Perfumes masculinos": 1,
+    "Perfumes Masculinos": 1,
     "Femeninos": 2,
     "Unisex": 3,
     "Cremas": 4,
-    "Body splash victoria secret": 5,
+    "Body Splash Victoria Secret": 5,
 };
 const ID_TO_CATEGORY_NAME = Object.fromEntries(
     Object.entries(CATEGORY_NAME_TO_ID).map(([k, v]) => [v, k])

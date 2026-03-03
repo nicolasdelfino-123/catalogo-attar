@@ -4,11 +4,11 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { withWholesale } from "../../../utils/wholesaleMode"; // ✅ ruta correcta desde /components/product
 
 const CATEGORIES = [
-    { id: 1, name: "Perfumes masculinos", slug: "perfumes-masculinos" },
+    { id: 1, name: "Perfumes Masculinos", slug: "perfumes-masculinos" },
     { id: 2, name: "Femeninos", slug: "femeninos" },
     { id: 3, name: "Unisex", slug: "unisex" },
     { id: 4, name: "Cremas", slug: "cremas" },
-    { id: 5, name: "Body splash victoria secret", slug: "body-splash-victoria-secret" },
+    { id: 5, name: "Body Splash Victoria Secret", slug: "body-splash-victoria-secret" },
 ];
 
 export default function SidebarFiltersNuevo({
@@ -163,10 +163,12 @@ export default function SidebarFiltersNuevo({
             {hasActiveFilters && (
                 <div className="border-b pb-4">
                     <div className="flex items-center justify-between mb-3">
-                        <h4 className="text-sm font-semibold text-gray-700">Filtros activos</h4>
+                        <h4 className="font-serif text-base tracking-wide text-[#232325]">
+                            Filtros activos
+                        </h4>
                         <button
                             onClick={clearAllFilters}
-                            className="text-xs text-purple-600 hover:text-purple-800 underline"
+                            className="text-xs font-serif text-stone-600 hover:text-[#d4af37] transition-colors underline"
                         >
                             Limpiar todos
                         </button>
@@ -194,7 +196,9 @@ export default function SidebarFiltersNuevo({
 
             {/* Categorías */}
             <div>
-                <h4 className="text-sm font-semibold mb-2 uppercase tracking-wide">Categorías</h4>
+                <h4 className="font-serif text-base mb-3 tracking-wide text-[#232325]">
+                    CATEGORÍAS
+                </h4>
                 <ul className="space-y-2">
                     {CATEGORIES.map((c) => {
                         const active = c.slug === currentCategorySlug;
@@ -212,9 +216,9 @@ export default function SidebarFiltersNuevo({
                                         }
                                         setOpen(false);
                                     }}
-                                    className={`w-full text-left px-2 py-1 rounded border transition-colors ${active
-                                        ? "bg-purple-200 border-purple-300 text-purple-800 font-semibold"
-                                        : "border-transparent text-gray-900 hover:bg-purple-50"
+                                    className={`w-full text-left py-2 border-b border-stone-200 font-serif transition-all duration-300 focus:outline-none ${active
+                                        ? "text-[#232325] font-semibold border-[#232325]"
+                                        : "text-stone-700 hover:text-[#d4af37] hover:border-[#d4af37]"
                                         }`}
                                 >
                                     {c.name}
@@ -229,7 +233,9 @@ export default function SidebarFiltersNuevo({
 
             {/* Precio */}
             <div>
-                <h4 className="text-sm font-semibold mb-2 uppercase tracking-wide">Filtrar por precio</h4>
+                <h4 className="font-serif text-base mb-3 tracking-wide text-[#232325]">
+                    Filtrar por precio
+                </h4>
 
                 <div className="flex items-center justify-between text-sm mb-2">
                     <span>${p.min.toLocaleString("es-AR")}</span>
@@ -243,7 +249,7 @@ export default function SidebarFiltersNuevo({
                             onChangePrice?.(draftPrice ?? { min: priceMin, max: priceMax });
                             setDraftPrice(null);
                         }}
-                        className="flex-1 py-2 rounded-lg bg-purple-600 text-white text-sm font-semibold"
+                        className="flex-1 py-2 rounded-lg bg-[#232325] hover:bg-blacktext-white text-sm font-semibold"
                     >
                         Aplicar
                     </button>
@@ -288,7 +294,9 @@ export default function SidebarFiltersNuevo({
             {/* Marcas */}
             {brandOptions.length > 0 && (
                 <div>
-                    <h4 className="text-sm font-semibold mb-2 uppercase tracking-wide">Marcas</h4>
+                    <h4 className="font-serif text-base mb-3 tracking-wide text-[#232325]">
+                        Marcas
+                    </h4>
 
                     <div className="flex items-center justify-between mb-2">
                         {selectedBrands.length > 0 ? (
@@ -301,7 +309,9 @@ export default function SidebarFiltersNuevo({
                                 Limpiar selección
                             </button>
                         ) : (
-                            <span className="text-xs text-gray-500">Seleccioná una o más</span>
+                            <span className="text-xs font-serif text-stone-500">
+                                Seleccioná uno o más
+                            </span>
                         )}
                     </div>
 
@@ -309,7 +319,7 @@ export default function SidebarFiltersNuevo({
                         {brandOptions.map(({ key, label, count }) => {
                             const checked = selectedBrands.includes(key);
                             return (
-                                <label key={key} className="flex items-center gap-2 text-sm cursor-pointer">
+                                <label key={key} className="flex items-center gap-2 text-sm font-serif text-stone-700 cursor-pointer hover:text-[#d4af37] transition-colors">
                                     <input
                                         type="checkbox"
                                         checked={checked}
@@ -329,14 +339,16 @@ export default function SidebarFiltersNuevo({
             {/* Mililitros */}
             {mlOptions.length > 0 && (
                 <div>
-                    <h4 className="text-sm font-semibold mb-2 uppercase tracking-wide">Mililitros</h4>
+                    <h4 className="font-serif text-base mb-3 tracking-wide text-[#232325]">
+                        Mililitros
+                    </h4>
 
                     <div className="flex items-center justify-between mb-2">
                         {selectedMls.length > 0 ? (
                             <button
                                 type="button"
                                 onClick={onClearMls}
-                                className="text-xs text-purple-600 hover:underline"
+                                className="text-xs font-serif text-stone-600 hover:text-[#d4af37] hover:underline transition-colors"
                                 title="Limpiar selección"
                             >
                                 Limpiar selección
@@ -351,7 +363,7 @@ export default function SidebarFiltersNuevo({
                             const numeric = Number(value);
                             const checked = selectedMls.includes(numeric);
                             return (
-                                <label key={numeric} className="flex items-center gap-2 text-sm cursor-pointer">
+                                <label key={numeric} className="flex items-center gap-2 text-sm font-serif text-stone-700 cursor-pointer hover:text-[#d4af37] transition-colors">
                                     <input
                                         type="checkbox"
                                         checked={checked}
@@ -382,7 +394,7 @@ export default function SidebarFiltersNuevo({
                         <Menu size={18} />
                         Filtros
                         {hasActiveFilters && (
-                            <span className="bg-purple-600 text-white text-xs px-1.5 py-0.5 rounded-full">
+                            <span className="bg-[#232325] hover:bg-black text-white text-xs px-1.5 py-0.5 rounded-full">
                                 {getActiveFilterTags().length}
                             </span>
                         )}
