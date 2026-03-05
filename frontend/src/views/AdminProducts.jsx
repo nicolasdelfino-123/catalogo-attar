@@ -389,6 +389,7 @@ export default function AdminProducts() {
     const [form, setForm] = useState(null)
     const [q, setQ] = useState("")
     const [selectedCategory, setSelectedCategory] = useState("Todos")
+    const [selectedStatus, setSelectedStatus] = useState("todos")
     // antes: const imgInputRef = useRef(null);
     const mainImgInputRef = useRef(null);
     const galImgInputRef = useRef(null);
@@ -841,7 +842,13 @@ export default function AdminProducts() {
             selectedCategory === "Todos" ||
             normalizeCategoryLabel(ID_TO_CATEGORY_NAME[p.category_id]) === normalizeCategoryLabel(selectedCategory); // 👈
 
-        return matchesSearch && matchesCategory;
+        const isActive = Boolean(p?.is_active);
+        const matchesStatus =
+            selectedStatus === "todos" ||
+            (selectedStatus === "activos" && isActive) ||
+            (selectedStatus === "inactivos" && !isActive);
+
+        return matchesSearch && matchesCategory && matchesStatus;
     });
 
 
@@ -862,7 +869,7 @@ export default function AdminProducts() {
             <h1 className="text-2xl font-bold mb-4">Admin Productos</h1>
 
             {/* Barra superior */}
-            <div className="flex flex-col sm:flex-row gap-3 mb-4">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-4">
                 <input
                     placeholder="Buscar por nombre o marca"
                     className="flex-1 border rounded px-3 py-2"
@@ -880,6 +887,15 @@ export default function AdminProducts() {
                             {cat}
                         </option>
                     ))}
+                </select>
+                <select
+                    value={selectedStatus}
+                    onChange={(e) => setSelectedStatus(e.target.value)}
+                    className="border rounded px-3 py-2 sm:w-44"
+                >
+                    <option value="todos">Ver todos</option>
+                    <option value="activos">Ver activos</option>
+                    <option value="inactivos">Ver inactivos</option>
                 </select>
                 <button
                     onClick={() => setForm({
