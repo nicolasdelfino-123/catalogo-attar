@@ -136,6 +136,8 @@ export default function Header() {
   const [mobileSearchTerm, setMobileSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
+  const productsCloseTimer = useRef(null);
+
 
 
   // Referencias para el dropdown
@@ -360,16 +362,22 @@ export default function Header() {
           </div> */}
 
           {/* Navigation - Desktop */}
-          <nav className="hidden md:flex space-x-10 font-serif tracking-wider text-sm uppercase">
+          <nav className="hidden md:flex h-full items-center space-x-10 font-serif tracking-wider text-sm uppercase">
             <Link to={withWholesale("/inicio")} className="text-gray-300 hover:text-amber-300 transition-all duration-300">Inicio</Link>
 
 
             {/* Dropdown de Productos */}
-            <div
-              className="relative group"
-              ref={productsDropdownRef}
-              onMouseEnter={() => setProductsDropdownOpen(true)}
-              onMouseLeave={() => setTimeout(() => setProductsDropdownOpen(false), 300)}
+            <div className="relative h-full flex items-center" ref={productsDropdownRef}
+              onMouseEnter={() => {
+                if (productsCloseTimer.current) clearTimeout(productsCloseTimer.current);
+                setProductsDropdownOpen(true);
+              }}
+              onMouseLeave={() => {
+                if (productsCloseTimer.current) clearTimeout(productsCloseTimer.current);
+                productsCloseTimer.current = setTimeout(() => {
+                  setProductsDropdownOpen(false);
+                }, 180);
+              }}
             >
               <button
                 onClick={() => setProductsDropdownOpen(!productsDropdownOpen)}
@@ -390,11 +398,12 @@ export default function Header() {
 
               {/* Dropdown Menu */}
               <div
-                className={`absolute top-full left-0 w-72 bg-[#111113] rounded-xl shadow-2xl border border-amber-500/20 backdrop-blur-lg z-50 overflow-hidden
-  transition-all duration-300 ease-out
-  ${productsDropdownOpen
-                    ? "opacity-100 translate-y-0 visible"
-                    : "opacity-0 -translate-y-2 invisible"}
+                className={`absolute left-0 top-full -mt-px w-72 bg-[#111113]
+  rounded-b-xl rounded-t-none
+  shadow-2xl border border-amber-500/20 border-t-0
+  backdrop-blur-lg z-50 overflow-hidden
+  transition-all duration-200 ease-out
+  ${productsDropdownOpen ? "opacity-100 translate-y-0 visible" : "opacity-0 -translate-y-2 invisible"}
 `}
               >
 
@@ -402,7 +411,11 @@ export default function Header() {
                   <Link
                     to={withWholesale("/products")}
                     className="flex items-center px-5 py-3 text-sm text-gray-300 hover:text-amber-300 hover:bg-[#1a1a1d] transition-all duration-200"
-                    onClick={() => setProductsDropdownOpen(false)}
+                    onClick={() => {
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                      setProductsDropdownOpen(false);
+                    }}
+
                   >
                     Ver todos los productos
                   </Link>
@@ -411,7 +424,10 @@ export default function Header() {
                       key={category.route}
                       to={withWholesale(category.route)}
                       className="block px-5 py-3 text-sm text-gray-300 hover:text-amber-300 hover:bg-[#1a1a1d] transition-all duration-200 border-b border-amber-500/10"
-                      onClick={() => setProductsDropdownOpen(false)}
+                      onClick={() => {
+                        window.scrollTo({ top: 0, behavior: "smooth" });
+                        setProductsDropdownOpen(false);
+                      }}
                     >
                       <span className="mr-3 text-base opacity-80">{category.icon}</span>
                       {category.name}
@@ -505,7 +521,7 @@ export default function Header() {
         {mobileSearchOpen && (
           <div className="bg-gray-1000 p-3 z-50">
             <div className="flex justify-end px-4 sm:px-6 lg:px-8">
-              <div className="relative w-full max-w-md" ref={searchBoxRef}>
+              <div className="static w-full max-w-md" ref={searchBoxRef}>
                 <div className="flex">
                   <input
                     type="text"
