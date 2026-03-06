@@ -13,7 +13,7 @@ export default function Asesoria() {
                 {/* TEXTO */}
                 <div className="flex flex-col gap-6">
 
-                    <span className="text-sm uppercase tracking-widest text-amber-500 font-medium text-center">
+                    <span className="text-sm uppercase tracking-widest -mt-10 text-amber-500 font-medium text-center">
                         Asesoramiento
                     </span>
 
@@ -34,7 +34,7 @@ export default function Asesoria() {
                         href={`https://wa.me/${whatsappNumber}?text=${message}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-block mx-auto px-8 py-4 rounded-xl text-lg font-medium text-black bg-gradient-to-r from-yellow-400 via-yellow-500 to-amber-600 hover:bg-gradient-to-r hover:from-[#d4af37] hover:via-[#f5d76e] hover:to-[#b8962e] transition-all duration-300 shadow-lg hover:shadow-xl"
+                        className="inline-block mx-auto px-8 py-4 mt-3 rounded-xl text-lg font-medium text-black bg-gradient-to-r from-yellow-400 via-yellow-500 to-amber-600 hover:bg-gradient-to-r hover:from-[#d4af37] hover:via-[#f5d76e] hover:to-[#b8962e] transition-all duration-300 shadow-lg hover:shadow-xl"
                     >
                         Solicitar asesoramiento
                     </a>
@@ -44,7 +44,7 @@ export default function Asesoria() {
 w-full h-[1px] md:w-px md:h-full
 bg-gradient-to-r md:bg-gradient-to-b
 from-transparent via-amber-400/40 to-transparent
-my-10 md:my-0
+my-1 md:my-0
 "></div>
                 {/* IMAGEN */}
                 <div className="relative">

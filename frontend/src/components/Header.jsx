@@ -300,7 +300,7 @@ export default function Header() {
   return (
     <header
       className={[
-        "sticky top-0 z-50 bg-[#0b0b0d]/90 border-b border-yellow-600/20 overflow-visible",
+        "sticky top-0 z-50 bg-[#111113]/95 border-b border-yellow-600/20 overflow-visible",
         "transition-all duration-300",
         isScrolled ? "shadow-lg" : "shadow-none",
         show ? "translate-y-0" : "-translate-y-full"

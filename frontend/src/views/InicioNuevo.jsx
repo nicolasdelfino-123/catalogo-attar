@@ -44,7 +44,7 @@ export default function InicioNuevo() {
 
 
             {/* HERO PREMIUM CON IMAGEN IMPORTADA */}
-            <section className="relative h-[75vh] min-h-[450px] flex items-center justify-center text-center overflow-hidden">
+            <section className="relative h-[600px] sm:h-[480px] md:h-[75vh] flex items-center justify-center text-center overflow-hidden">
 
                 {/* Fondo con tu imagen */}
                 <div

@@ -22,12 +22,12 @@ const Footer = () => {
         <div>
             <footer className="bg-[#0b0b0d] text-gray-300 py-12 font-serif">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center md:text-left">
                         <div className="flex flex flex-col items-center">
                             <img
                                 src={logofooter}
                                 alt="Shatha"
-                                className="h-56 mb-3 -mt-9 opacity-95"
+                                className="h-56 mb-3 -mt-13 opacity-95"
                             />
 
                             <p className="text-gray-400 text-sm max-w-xs -mt-5 text-center">
@@ -81,7 +81,7 @@ const Footer = () => {
 
                         <div>
                             <h4 className="font-semibold mb-4 uppercase tracking-wider text-sm text-gray-200">Contacto</h4>
-                            <ul className="space-y-2 text-gray-400">
+                            <ul className="space-y-2 text-gray-300">
                                 <li>
                                     <a
                                         href={link}
@@ -115,7 +115,7 @@ const Footer = () => {
 
                     </div>
 
-                    <div className="border-t border-yellow-600/20 mt-8 pt-8 text-center text-gray-400 text-sm">
+                    <div className="border-t border-yellow-600/20 mt-8 pt-8 text-center text-gray-400 text-xs">
                         <p>
                             Copyright © <span
                                 onDoubleClick={() => {
@@ -125,7 +125,7 @@ const Footer = () => {
                                 className="cursor-default select-none"
                             >
                                 2026
-                            </span> | Sitio xxxxx — Sitio web desarrollado por{" "}
+                            </span> | Sitio web desarrollado por{" "}
                             <a
                                 href="https://wa.me/5493534793366?text=Hola%2C%20vi%20tu%20web%20y%20quiero%20consultarte%20por%20una%20página"
                                 target="_blank"
