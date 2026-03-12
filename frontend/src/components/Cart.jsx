@@ -552,7 +552,7 @@ Pago: ${customerData.payment}
             <input
               type="text"
               name="name"
-              placeholder="Nombre"
+              placeholder="Nombre y Apellido"
               value={customerData.name}
               onChange={handleCustomerChange}
               className="w-full border border-gray-300 rounded-lg px-3 py-2 mb-3 font-serif tracking-wide focus:outline-none focus:border-gray-900"
