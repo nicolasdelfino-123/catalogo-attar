@@ -202,7 +202,7 @@ def create_order():
                 order_id=order.id,
                 product_id=item.get("product_id"),
                 quantity=qty,
-                price=item.get("price", 0),
+                price=float(item.get("price") or 0),
                 selected_flavor=item.get("selected_flavor"),
                 selected_size_ml=selected_size_ml
             )
