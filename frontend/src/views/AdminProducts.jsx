@@ -452,7 +452,15 @@ export default function AdminProducts() {
     };
     const startEditWholesale = (product, currentWholesale) => {
         setEditingWholesaleId(product.id);
-        setEditingWholesale(currentWholesale ?? product.price_wholesale ?? "");
+        setEditingWholesale(
+            currentWholesale == null || currentWholesale === ""
+                ? ""
+                : Number(currentWholesale).toLocaleString("es-AR", {
+                    minimumFractionDigits: Number(currentWholesale) % 1 === 0 ? 0 : 2,
+                    maximumFractionDigits: 2,
+                })
+        );
+
     };
 
 
@@ -1419,7 +1427,14 @@ export default function AdminProducts() {
                                                     ...p,
                                                     category_id: Number(p.category_id) === 6 ? 1 : p.category_id,
                                                     price: Number(p.price) > 0 ? String(p.price) : "",
-                                                    price_wholesale: p.price_wholesale ?? "", // ✅ NUEVO: trae mayorista al form
+                                                    price_wholesale:
+                                                        p.price_wholesale == null || p.price_wholesale === ""
+                                                            ? ""
+                                                            : Number(p.price_wholesale).toLocaleString("es-AR", {
+                                                                minimumFractionDigits: Number(p.price_wholesale) % 1 === 0 ? 0 : 2,
+                                                                maximumFractionDigits: 2,
+                                                            }),
+                                                    // ✅ NUEVO: trae mayorista al form
                                                     volume_ml: p.volume_ml ?? "",
                                                     volume_stock: "",
                                                     volume_options: normalizeVolumeOptions(p.volume_options || [], { keepWithoutMl: true }),
@@ -1665,7 +1680,8 @@ export default function AdminProducts() {
                                                         volume_stock: Number.isFinite(Number(row?.stock)) ? String(row.stock) : "",
                                                         price: Number(row?.price) > 0 ? String(row.price) : "",
                                                         price_wholesale:
-                                                            Number(row?.price_wholesale) > 0 ? String(row.price_wholesale) : "",
+                                                            Number(row?.price_wholesale) > 0 ? String(row.price_wholesale).replace(".", ",") : "",
+
                                                         volume_options: (prev.volume_options || []).filter((_, i) => i !== idx),
                                                     }))
                                                 }
