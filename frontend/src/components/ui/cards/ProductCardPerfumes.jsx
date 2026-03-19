@@ -298,7 +298,7 @@ export default function ProductCardPerfumes({ product, returnTo, isGrid = true }
                 {/* Precio */}
                 <div className="mt-2 sm:mt-4 text-center">
                     {finalPrice !== null ? (
-                        <span className="text-xl sm:text-2xl font-semibold text-black tracking-tight">
+                        <span className="text-lg sm:text-xl font-semibold text-black tracking-tight">
                             {pricePrefix}{formatPrice(finalPrice)}
                         </span>
                     ) : (

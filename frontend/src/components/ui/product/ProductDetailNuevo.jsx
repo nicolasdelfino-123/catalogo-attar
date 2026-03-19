@@ -393,13 +393,16 @@ export default function ProductDetailNuevo() {
     ========================= */
 
     return (
-        <div className="min-h-screen bg-stone-100 py-8">
+        <div className="min-h-screen bg-stone-100 pt-3 pb-8">
+
             <div className="max-w-6xl mx-auto px-4">
 
                 {/* VOLVER */}
                 <button
                     onClick={handleBack}
-                    className="mb-6 px-4 py-2 rounded-md bg-[#232325] text-white text-sm font-medium hover:bg-[#1c1c1e] transition"
+                    className="hidden sm:inline-flex mb-1 -mt-4 px-4 py-2 text-black text-sm font-medium hover:text-stone-600 transition-colors bg-transparent border-0 rounded-none shadow-none outline-none focus:outline-none focus:ring-0"
+
+                    style={{ backgroundColor: "transparent", border: "none", boxShadow: "none" }}
                 >
                     ← Volver
                 </button>
@@ -433,13 +436,13 @@ export default function ProductDetailNuevo() {
 
                     {/* INFO */}
                     <div>
-                        <h1 className="text-3xl font-serif font-semibold text-[#232325] mb-4 tracking-wide">{product.name}</h1>
+                        <h1 className="text-2xl sm:text-4xl font-serif font-semibold text-[#232325] mb-4 tracking-wide">{product.name}</h1>
                         {product.brand && (
                             <p className="text-base font-serif text-stone-600 mb-4 tracking-wide">Marca: {product.brand}</p>
                         )}
 
 
-                        <div className="text-4xl font-semibold text-black mb-4">
+                        <div className="text-2xl sm:text-3xl font-semibold text-black mb-4">
                             {finalPrice !== null
                                 ? `${pricePrefix}${formatPrice(finalPrice)}`
                                 : "Consultar"}
