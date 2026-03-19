@@ -151,7 +151,7 @@ export default function SidebarFiltersNuevo({
 
     // ⚠️ sin h-full (rompe sticky); nada de overflow aquí
     const body = (
-        <div className="w-64 max-w-[80vw] bg-white border-r p-4 space-y-6">
+        <div className="w-64 max-w-[80vw] bg-white border-r p-4 space-y-6 md:max-h-[calc(100vh-7rem)] md:overflow-y-auto md:pr-2">
             <div className="md:hidden flex justify-between items-center mb-2">
                 <h3 className="text-lg font-serif font-semibold tracking-wide text-[#232325]">Filtros</h3>
                 <button onClick={() => setOpen(false)} className="px-3 py-1 border border-stone-300 rounded font-serif text-sm text-stone-700 hover:border-black hover:text-black transition-colors">
@@ -392,7 +392,7 @@ export default function SidebarFiltersNuevo({
                         className="inline-flex items-center gap-2 px-3 py-2 border rounded-md"
                     >
                         <Menu size={18} />
-                        Filtros
+                        Ver barra lateral
                         {hasActiveFilters && (
                             <span className="bg-[#232325] hover:bg-black text-white text-xs px-1.5 py-0.5 rounded-full">
                                 {getActiveFilterTags().length}

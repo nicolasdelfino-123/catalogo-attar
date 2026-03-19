@@ -8,7 +8,7 @@ import { Context } from "../../../js/store/appContext.jsx"// (si en tu proyecto 
 import ProductCardPerfumes from "../cards//ProductCardPerfumes.jsx";        // o "../ui/cards/ProductCardPerfumes.jsx" / donde esté tu card
 import SidebarFiltersNuevo from "./SidebarFiltersNuevo.jsx";     // o "./SidebarFilterNuevo.jsx" cuando lo refactoricemos
 import Modal from "../../Modal.jsx";
-import { ChevronRight, ChevronLeft } from "lucide-react";
+import { ChevronRight, ChevronLeft, ArrowUpDown } from "lucide-react";
 import { withWholesale } from "../../../utils/wholesaleMode.js";
 
 // -----------------------------
@@ -31,6 +31,27 @@ const writeGridState = (key, state) => {
     } catch {
         // noop
     }
+};
+
+const getDefaultItemsPerPage = () => {
+    if (typeof window === "undefined") return 24;
+    return window.innerWidth >= 768 ? 24 : 16;
+};
+
+const renderColumnsIcon = (cols, active) => {
+    const squareClass = active ? "bg-black" : "bg-stone-400/80";
+
+    return (
+        <span
+            className="grid gap-[2px]"
+            style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}
+            aria-hidden="true"
+        >
+            {Array.from({ length: cols * 2 }).map((_, idx) => (
+                <span key={idx} className={`h-[6px] w-[6px] rounded-[1px] ${squareClass}`} />
+            ))}
+        </span>
+    );
 };
 
 // -----------------------------
@@ -142,11 +163,13 @@ export default function ProductGridNuevo({ category, hideFilters = false }) {
     const [modalOpen, setModalOpen] = useState(false);
 
     // Paginación + Orden
-    const [itemsPerPage, setItemsPerPage] = useState(12);
+    const [itemsPerPage, setItemsPerPage] = useState(getDefaultItemsPerPage);
     const [currentPage, setCurrentPage] = useState(
         Number(searchParams.get("page")) || 1
     );
     const [sortOrder, setSortOrder] = useState("default"); // default | price-asc | price-desc
+    const [cardsPerRow, setCardsPerRow] = useState(4);
+    const [mobileSortOpen, setMobileSortOpen] = useState(false);
 
     // Persistencia por categoría
     const storageKey = useMemo(() => `${GRID_STATE_KEY}:${slug || "all"}`, [slug]);
@@ -210,7 +233,16 @@ export default function ProductGridNuevo({ category, hideFilters = false }) {
             setSelectedBrands(saved.selectedBrands ?? []);
             setSelectedMls(saved.selectedMls ?? []);
 
-            setItemsPerPage(saved.itemsPerPage ?? 12);
+            const defaultItemsPerPage = getDefaultItemsPerPage();
+            const restoredItemsPerPage =
+                saved.itemsPerPage == null
+                    ? defaultItemsPerPage
+                    : (window.innerWidth >= 768 && saved.itemsPerPage === 12
+                        ? 24
+                        : saved.itemsPerPage);
+
+            setItemsPerPage(restoredItemsPerPage);
+            setCardsPerRow(saved.cardsPerRow ?? 4);
 
             const forcedPage = Number(sessionStorage.getItem("lastProductPage"));
             if (Number.isFinite(forcedPage) && forcedPage > 0) {
@@ -415,6 +447,7 @@ export default function ProductGridNuevo({ category, hideFilters = false }) {
         selectedMls,
         sortOrder,
         itemsPerPage,
+        cardsPerRow,
     ]);
 
 
@@ -446,6 +479,7 @@ export default function ProductGridNuevo({ category, hideFilters = false }) {
                 selectedBrands,
                 selectedMls,
                 itemsPerPage,
+                cardsPerRow,
                 currentPage,
                 sortOrder,
 
@@ -460,6 +494,7 @@ export default function ProductGridNuevo({ category, hideFilters = false }) {
         selectedBrands,
         selectedMls,
         itemsPerPage,
+        cardsPerRow,
         currentPage,
         sortOrder,
     ]);
@@ -591,7 +626,7 @@ export default function ProductGridNuevo({ category, hideFilters = false }) {
                 {/* Sidebar */}
                 {!hideFilters && (
                     <SidebarFiltersNuevo
-                        className="md:shrink-0 md:sticky md:top-4 md:self-start"
+                        className="md:shrink-0 md:sticky md:top-24 md:self-start"
                         currentCategorySlug={currentSlug}
                         onSelectCategory={handleSelectCategory}
                         priceMin={categoryPriceRange.min}
@@ -644,31 +679,56 @@ export default function ProductGridNuevo({ category, hideFilters = false }) {
                                 style={{ border: "1px solid #9ca5b5ff" }}
                             />
 
-                            <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center justify-between">
-                                {/* Items por página */}
-                                <div className="flex items-center gap-2">
-                                    <span className="text-sm font-serif text-stone-700 tracking-wide">
-                                        Mostrar:
-                                    </span>
-                                    <div className="flex gap-1">
-                                        {[8, 12, 16, 24].map((num) => (
-                                            <button
-                                                key={num}
-                                                onClick={() => setItemsPerPage(num)}
-                                                className={`px-2 py-1 text-sm font-serif rounded transition-colors ${itemsPerPage === num
-                                                    ? "bg-[#232325] text-white"
-                                                    : "bg-stone-100 text-stone-700 hover:bg-stone-200"
-                                                    }`}
-                                            >
-                                                {num}
-                                            </button>
-                                        ))}
+                            <div className="flex w-full items-center justify-between gap-3">
+                                {/* Items por página + vista */}
+                                <div className="flex items-center gap-3 md:gap-5">
+                                    <div className="flex items-center gap-2">
+                                        <span className="text-sm font-serif text-stone-800 tracking-wide border-b border-stone-300 pb-0.5">
+                                            <span className="sm:hidden">Mostrar:</span>
+                                            <span className="hidden sm:inline">Productos por página:</span>
+                                        </span>
+                                        <div className="flex gap-1">
+                                            {[8, 12, 16, 24].map((num) => (
+                                                <button
+                                                    key={num}
+                                                    onClick={() => setItemsPerPage(num)}
+                                                    className={`px-2 py-1 text-sm font-serif rounded transition-colors ${itemsPerPage === num
+                                                        ? "bg-[#232325] text-white"
+                                                        : "bg-stone-100 text-stone-700 hover:bg-stone-200"
+                                                        }`}
+                                                >
+                                                    {num}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    <div className="hidden md:flex items-center gap-2">
+                                        <span className=" ms-5 text-sm font-serif text-stone-800 tracking-wide border-b border-stone-300 pb-0.5">
+                                            Columnas:
+                                        </span>
+                                        <div className="flex gap-1">
+                                            {[2, 3, 4].map((num) => (
+                                                <button
+                                                    key={num}
+                                                    onClick={() => setCardsPerRow(num)}
+                                                    className={`inline-flex items-center justify-center rounded border px-2 py-1.5 transition-colors ${cardsPerRow === num
+                                                        ? "border-stone-500 bg-stone-100"
+                                                        : "border-stone-200 bg-white hover:border-stone-400"
+                                                        }`}
+                                                    aria-label={`Ver ${num} productos por fila`}
+                                                    title={`${num} por fila`}
+                                                >
+                                                    {renderColumnsIcon(num, cardsPerRow === num)}
+                                                </button>
+                                            ))}
+                                        </div>
                                     </div>
                                 </div>
 
-                                {/* Ordenamiento */}
-                                <div className="flex items-center gap-2">
-                                    <span className="text-sm font-serif text-stone-700 tracking-wide">
+                                {/* Ordenamiento desktop */}
+                                <div className="hidden sm:flex items-center gap-2">
+                                    <span className="text-sm font-serif text-stone-800 tracking-wide border-b border-stone-300 pb-0.5">
                                         Ordenar:
                                     </span>
                                     <select
@@ -680,6 +740,44 @@ export default function ProductGridNuevo({ category, hideFilters = false }) {
                                         <option value="price-asc">Precio: Bajo a Alto</option>
                                         <option value="price-desc">Precio: Alto a Bajo</option>
                                     </select>
+                                </div>
+
+                                {/* Ordenamiento mobile */}
+                                <div className="relative flex w-full items-center justify-end sm:hidden">
+                                    <button
+                                        type="button"
+                                        onClick={() => setMobileSortOpen((prev) => !prev)}
+                                        className="inline-flex items-center justify-center rounded border border-stone-300 bg-white p-2 text-stone-700 transition-colors hover:border-stone-500 hover:text-black"
+                                        aria-label="Ordenar productos"
+                                        title="Ordenar"
+                                    >
+                                        <ArrowUpDown size={18} />
+                                    </button>
+
+                                    {mobileSortOpen && (
+                                        <div className="absolute right-0 top-full z-20 mt-2 min-w-[220px] overflow-hidden rounded-lg border border-stone-200 bg-white shadow-lg">
+                                            {[
+                                                { value: "default", label: "Predeterminado" },
+                                                { value: "price-asc", label: "Precio: Bajo a Alto" },
+                                                { value: "price-desc", label: "Precio: Alto a Bajo" },
+                                            ].map((option) => (
+                                                <button
+                                                    key={option.value}
+                                                    type="button"
+                                                    onClick={() => {
+                                                        setSortOrder(option.value);
+                                                        setMobileSortOpen(false);
+                                                    }}
+                                                    className={`block w-full px-4 py-3 text-left text-sm font-serif transition-colors ${sortOrder === option.value
+                                                        ? "bg-stone-100 text-[#232325]"
+                                                        : "text-stone-700 hover:bg-stone-50"
+                                                        }`}
+                                                >
+                                                    {option.label}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -693,7 +791,7 @@ export default function ProductGridNuevo({ category, hideFilters = false }) {
                         </div>
                     ) : (
                         <>
-                            <div className="grid grid-cols-2 gap-3 sm:gap-6">
+                            <div className={`grid grid-cols-2 gap-3 sm:gap-6 ${cardsPerRow === 4 ? "lg:grid-cols-4" : cardsPerRow === 3 ? "lg:grid-cols-3" : "lg:grid-cols-2"}`}>
                                 {paginatedProducts.map((product) => (
                                     <div
                                         key={product.id}
