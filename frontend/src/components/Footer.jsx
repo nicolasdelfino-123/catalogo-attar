@@ -93,17 +93,17 @@ const Footer = () => {
                                         href="mailto:xxx@gmail.com"
                                         className="relative hover:text-amber-300 transition-all duration-300 after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-[1px] after:bg-amber-400 after:transition-all after:duration-300 hover:after:w-full"
                                     >
-                                        Email: shathaperfumeslv@gmail.com
+                                        Email: nicolasdelfino585@gmail.com
                                     </a>
                                 </li>
                                 <li>
                                     <a
-                                        href="https://www.instagram.com/shatha_oriental/"
+                                        href="https://www.instagram.com/catalogos_digitales/"
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="relative hover:text-amber-300 transition-all duration-300 after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-[1px] after:bg-amber-400 after:transition-all after:duration-300 hover:after:w-full"
                                     >
-                                        Instagram: @shatha_oriental
+                                        Instagram: @catalogos_digitales
                                     </a>
                                 </li>
                             </ul>

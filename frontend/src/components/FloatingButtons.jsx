@@ -8,9 +8,9 @@ import React from "react";
  */
 export default function FloatingButtons() {
     // EDITA estas URLs a las reales de tu cliente
-    const IG_URL = "https://www.instagram.com/shatha_oriental/";
+    const IG_URL = "https://www.instagram.com/catalogos_digitales/";
     const mensaje = "Hola, quiero consultar por un perfume del catálogo";
-    const WA_URL = `https://wa.me/5493533459552?text=${mensaje}`;
+    const WA_URL = `https://wa.me/5493534793366?text=${mensaje}`;
 
 
 

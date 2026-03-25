@@ -1,7 +1,7 @@
 import perfumeImg from "../assets/asesoria.webp";
 
 export default function Asesoria() {
-    const whatsappNumber = "549XXXXXXXXXX"; // <-- poné el número real
+    const whatsappNumber = "5493534793366"; // <-- poné el número real
     const message = encodeURIComponent(
         "Hola! Me gustaría recibir asesoramiento para elegir una fragancia."
     );

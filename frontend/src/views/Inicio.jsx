@@ -36,9 +36,9 @@ function Inicio() {
 
     const ADDRESS = "Vélez Sarsfield 303, Las Varillas, Córdoba";
     const HOURS = "Lunes a Sábado 8:00–12:00 / 17:00–20:15";
-    const IG_URL = "https://www.instagram.com/shatha_oriental/";
+    const IG_URL = "https://www.instagram.com/catalogos_digitales/";
     const mensaje = "Hola, vi tu tienda Shatha Oriental y quiero hacer un pedido";
-    const WA_URL = `https://wa.me/5493533459552?text=${encodeURIComponent(mensaje)}`;
+    const WA_URL = `https://wa.me/5493534793366?text=${encodeURIComponent(mensaje)}`;
 
 
     // Coordenadas exactas de tu link
