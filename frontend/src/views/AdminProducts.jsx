@@ -434,6 +434,7 @@ export default function AdminProducts() {
     const [expandedMobileProductId, setExpandedMobileProductId] = useState(null);
     const [uploadingImage, setUploadingImage] = useState(false);
     const [uploadingImageLabel, setUploadingImageLabel] = useState("");
+    const [savingProduct, setSavingProduct] = useState(false);
 
 
 
@@ -845,6 +846,7 @@ export default function AdminProducts() {
     const shouldShowFlavors = () => false
 
     const doSaveProduct = async () => {
+        setSavingProduct(true);
         try {
             const method = form.id ? "PUT" : "POST"
             const url = form.id ? `${API}/admin/products/${form.id}` : `${API}/admin/products`
@@ -971,6 +973,8 @@ export default function AdminProducts() {
         } catch (error) {
             console.error("Error saving product:", error);
             alert("Error al guardar producto");
+        } finally {
+            setSavingProduct(false);
         }
     };
 
@@ -2330,11 +2334,18 @@ export default function AdminProducts() {
                         </label>
 
                         <div className="flex gap-2 justify-end">
-                            <button type="button" onClick={() => setForm(null)} className="px-3 py-2 border rounded">
+                            <button type="button" onClick={() => setForm(null)} disabled={savingProduct} className="px-3 py-2 border rounded disabled:opacity-50 disabled:cursor-not-allowed">
                                 Cancelar
                             </button>
-                            <button type="submit" className="px-3 py-2 bg-purple-600 text-white rounded hover:bg-purple-700">
-                                Guardar
+                            <button
+                                type="submit"
+                                disabled={savingProduct}
+                                className={`px-3 py-2 text-white rounded hover:opacity-90 flex items-center gap-2 ${savingProduct ? 'bg-orange-600' : 'bg-purple-600 hover:bg-purple-700'}`}
+                            >
+                                {savingProduct && (
+                                    <span className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                                )}
+                                {savingProduct ? 'Guardando...' : 'Guardar'}
                             </button>
                         </div>
 
