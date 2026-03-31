@@ -1,10 +1,10 @@
 export const PERFUME_CATEGORY_DEFINITIONS = [
-    { id: 1, name: "Masculinos", slug: "perfumes-masculinos" },
-    { id: 2, name: "Femeninos", slug: "femeninos" },
-    { id: 3, name: "Unisex", slug: "unisex" },
-    { id: 4, name: "Cremas", slug: "cremas" },
-    { id: 5, name: "Body Splash Victoria Secret", slug: "body-splash-victoria-secret" },
-    { id: 7, name: "Perfumes de Diseñador", slug: "perfumes-de-disenador" },
+    { id: 1, name: "Fragancias de Hombre", slug: "perfumes-masculinos" },
+    { id: 2, name: "Fragancias de Mujer", slug: "femeninos" },
+    { id: 3, name: "Productos Karseell", slug: "unisex" },
+    // { id: 4, name: "Cremas", slug: "cremas" },
+    // { id: 5, name: "Body Splash Victoria Secret", slug: "body-splash-victoria-secret" },
+    // { id: 7, name: "Perfumes de Diseñador", slug: "perfumes-de-disenador" },
 ];
 
 export const PERFUME_CATEGORY_NAMES = PERFUME_CATEGORY_DEFINITIONS.map((category) => category.name);
@@ -17,16 +17,19 @@ export const CATEGORY_ID_TO_NAME = PERFUME_CATEGORY_DEFINITIONS.reduce(
 );
 
 export const CATEGORY_NAME_TO_ID = {
+    "Fragancias de Hombre": 1,
     Masculinos: 1,
     "Perfumes masculinos": 1,
     "Perfumes Masculinos": 1,
+    "Fragancias de Mujer": 2,
     Femeninos: 2,
+    "Productos Karseell": 3,
     Unisex: 3,
-    Cremas: 4,
-    "Body Splash Victoria Secret": 5,
-    "Body splash victoria secret": 5,
-    "Perfumes de Diseñador": 7,
-    "Perfumes de Disenador": 7,
+    // Cremas: 4,
+    // "Body Splash Victoria Secret": 5,
+    // "Body splash victoria secret": 5,
+    // "Perfumes de Diseñador": 7,
+    // "Perfumes de Disenador": 7,
 };
 
 export const LEGACY_CATEGORY_NAME_TO_CURRENT = {

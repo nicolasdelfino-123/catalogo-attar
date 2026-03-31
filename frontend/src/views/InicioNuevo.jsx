@@ -158,7 +158,7 @@ md:mt-[350px]     /* DESKTOP mover bloque */
                     </div>
                 )}
             </section>
-            <div className="flex justify-center mt-0 mb-12 lg:px-12 lg:py-12">
+            <div className="flex justify-center mt-0 mb-1 lg:px-12 lg:py-12">
                 <div
                     onClick={() => navigate(location.pathname.startsWith("/mayorista") ? "/mayorista/products" : "/products")}
                     className="
@@ -169,8 +169,8 @@ tracking-wide
 text-sm
 uppercase
 rounded-lg
-text-black
-bg-[linear-gradient(110deg,#fbbf24,#f59e0b,#fbbf24)]
+text-white
+bg-[#0B0608] border border-[#C9A227] text-[#C9A227] hover:bg-[#C9A227] hover:text-black
 bg-[length:200%_100%]
 bg-left
 hover:bg-right
@@ -199,7 +199,7 @@ shadow-lg shadow-amber-500/20
                             {ADDRESS.replace(ADDRESS.split(",")[0] + ", ", "")}
                         </p>
 
-                        <p className="mt-5 text-gray-600">{HOURS}</p>
+                        <p className="mt-2 text-gray-600">{HOURS}</p>
 
                         <div className="mt-6 flex justify-center md:justify-center gap-4">
 
