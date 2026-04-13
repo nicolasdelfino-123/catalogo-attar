@@ -41,6 +41,32 @@ export default function InicioNuevo() {
     )}`;
 
     const MAP_EMBED = storeConfig.map.embed;
+    const allProducts = store.products || [];
+    const getProductPrice = (product) => {
+        const price = Number(product?.price);
+        return Number.isFinite(price) ? price : Number.POSITIVE_INFINITY;
+    };
+    const isWomenFragrance = (product) =>
+        Number(product?.category_id) === 2 ||
+        /mujer|femen/i.test(String(product?.category_name || ""));
+    const isMenFragrance = (product) =>
+        Number(product?.category_id) === 1 ||
+        /hombre|masculin/i.test(String(product?.category_name || ""));
+
+    const womenFeatured = allProducts
+        .filter(isWomenFragrance)
+        .sort((a, b) => getProductPrice(a) - getProductPrice(b))
+        .slice(0, 6);
+    const menFeatured = allProducts
+        .filter(isMenFragrance)
+        .sort((a, b) => getProductPrice(a) - getProductPrice(b))
+        .slice(0, 6);
+    const selectedFeaturedIds = new Set([...womenFeatured, ...menFeatured].map((p) => p.id));
+    const featuredProducts = [
+        ...womenFeatured,
+        ...menFeatured,
+        ...allProducts.filter((p) => !selectedFeaturedIds.has(p.id)).slice(0, Math.max(0, 12 - (womenFeatured.length + menFeatured.length))),
+    ].slice(0, 12);
 
 
     useLayoutEffect(() => {
@@ -196,7 +222,7 @@ md:mt-[350px]     /* DESKTOP mover bloque */
                     <p className="text-center">Cargando...</p>
                 ) : (
                     <div className="grid grid-cols-2 gap-3 sm:gap-6 md:grid-cols-3 lg:grid-cols-4">
-                        {(store.products || []).slice(0, 12).map((product) => (
+                        {featuredProducts.map((product) => (
                             <div
                                 key={product.id}
                                 data-product-id={product.id}

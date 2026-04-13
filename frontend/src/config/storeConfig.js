@@ -2,7 +2,7 @@ export const storeConfig = {
     storeName: "Attar Perfumes",
 
     branding: {
-        heroTitle: "Fragancias Árabes 100% Originales",
+        heroTitle: "Fragancias Árabes Originales",
         heroSubtitle: "Contamos con stock y variedad permanente",
         /*       footerText: "Perfumes árabes originales en Argentina.", */
     },
