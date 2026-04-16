@@ -212,7 +212,7 @@ md:mt-[350px]     /* DESKTOP mover bloque */
             <section className="max-w-7xl mx-auto px-2 sm:px-4 py-12">
                 <div className="text-center mb-10">
                     <h2 className="text-2xl md:text-3xl font-serif font-semibold tracking-wide">
-                        Productos destacados
+                        Productos Destacados
                     </h2>
 
                     <div className="w-16 h-[2px] bg-amber-500 mx-auto mt-4"></div>
@@ -261,9 +261,9 @@ shadow-lg shadow-amber-500/20
                 <Asesoria />
             </section> */}
             <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16" id='asesoria'>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-10 items-center">
+                <div className="grid grid-cols-1 gap-10 items-center justify-items-center">
                     {/* Columna izquierda: texto */}
-                    <div className="md:col-span-1 text-center md:text-left">
+                    <div className="text-center">
                         <span className="inline-block text-lg tracking-wider font-semibold text-gray-700 bg-purple-50 border border-purple-100 rounded-full px-3 py-1">
                             ¡Contactanos!
                         </span>
@@ -277,7 +277,7 @@ shadow-lg shadow-amber-500/20
 
                         <p className="mt-2 text-gray-600">{HOURS}</p>
 
-                        <div className="mt-6 flex justify-center md:justify-center gap-4">
+                        <div className="mt-6 flex justify-center gap-4">
 
                             {/* Instagram */}
                             <a
@@ -303,43 +303,19 @@ shadow-lg shadow-amber-500/20
                                 title="WhatsApp"
                             >
                                 <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor">
-                                    <path d="M20.52 3.48A11.9 11.9 0 0012.06 0C5.5 0 .2 5.3.2 11.86c0 2.09.55 4.12 1.6 5.92L0 24l6.4-1.73a11.8 11.8 0 005.66 1.45h.01c6.56 0 11.86-5.3 11.86-11.86 0-3.17-1.23-6.14-3.38-8.28zM12.07 21.6h-.01a9.75 9.75 0 01-4.98-1.36l-.36-.21-3.8 1.02 1.04-3.7-.23-.38a9.8 9.8 0 01-1.49-5.11c0-5.41 4.4-9.8 9.82-9.8 2.62 0 5.08 1.02 6.93 2.87a9.74 9.74 0 012.86 6.93c0 5.41-4.4 9.74-9.78 9.74zm5.64-7.29c-.31-.16-1.86-.92-2.14-1.02-.29-.11-.5-.16-.71.16-.2.31-.81 1.02-.99 1.23-.19.2-.37.23-.68.08-.31-.16-1.31-.48-2.5-1.52-.92-.81-1.54-1.81-1.73-2.12-.18-.31-.02-.48.14-.64.14-.14.31-.37.46-.56.16-.19.2-.31.31-.52.1-.2.05-.39-.02-.55-.07-.16-.71-1.7-.98-2.34-.26-.63-.53-.54-.71-.55-.18-.01-.39-.01-.6-.01-.2 0-.55.08-.84.39-.29.31-1.1 1.08-1.1 2.63 0 1.55 1.13 3.05 1.29 3.26.16.2 2.22 3.55 5.38 4.98.75.33 1.33.52 1.79.66.75.24 1.43.21 1.98.13.6-.09 1.86-.76 2.13-1.49.26-.73.26-1.35.18-1.49-.08-.14-.28-.22-.59-.38z" />
+                                    <path d="M20.52 3.48A11.9 11.9 0 0012.06 0C5.5 0 .2 5.3.2 11.86c0 2.09.55 4.12 1.6 5.92L0 24l6.4-1.73a11.8 11.8 0 005.66 1.45h.01c6.56 0 11.86-5.3 11.86-11.86 0-3.17-1.23-6.14-3.38-8.28zM12.07 21.6h-.01a9.75 9.75 0 01-4.98-1.36l-.36-.21-3.8 1.02 1.04-3.7-.23-.38a9.8 9.8 0 01-1.49-5.11c0-5.41 4.4-9.8 9.82-9.8 2.62 0 5.08 1.02 6.93 2.87a9.74 9.74 0 012.86 6.93c0 5.41-4.4 9.74-9.78 9.74zm5.64-7.29c-.31-.16-1.86-.92-2.14-1.02-.29-.11-.5-.16-.71.16-.2.31-.81 1.02-.99 1.23-.19.2-.37.23-.68.08-.31-.16-1.31-.48-2.5-1.52-.92-.81-1.54-1.81-1.73-2.12-.18-.31-.02-.48.14-.64.14-.14.31-.37.46-.56.16-.19.20-.31.31-.52.1-.2.05-.39-.02-.55-.07-.16-.71-1.7-.98-2.34-.26-.63-.53-.54-.71-.55-.18-.01-.39-.01-.6-.01-.2 0-.55.08-.84.39-.29.31-1.1 1.08-1.1 2.63 0 1.55 1.13 3.05 1.29 3.26.16.2 2.22 3.55 5.38 4.98.75.33 1.33.52 1.79.66.75.24 1.43.21 1.98.13.6-.09 1.86-.76 2.13-1.49.26-.73.26-1.35.18-1.49-.08-.14-.28-.22-.59-.38z" />
                                 </svg>
                             </a>
                         </div>
                     </div>
-
-                    {/* Divider central (sólo desktop) */}
-                    <div className="hidden md:block h-full w-px bg-gradient-to-b from-transparent via-gray-300 to-transparent mx-auto" />
-
-                    {/* Columna derecha: mapa (oscuro por CSS) */}
-                    <div className="hidden md:col-span-1 md:block">
-                        <div className="relative">
-
-                            <div className="rounded-2xl overflow-hidden shadow-xl">
-                                <img
-                                    src={perfumeImg}
-                                    alt="Perfume elegante"
-                                    className="w-full h-[280px] md:h-[400px] object-cover"
-                                />
-                            </div>
-
-                            {/* efecto decorativo */}
-                            <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-purple-200 rounded-full blur-3xl opacity-40"></div>
-                        </div>
-
-                    </div>
                 </div>
 
-                {/* Filtro para “estilo oscuro” del iframe (sin API key) */}
                 <style>{`
-    .map-dark iframe {
-      /* Ajustá estos valores si querés más/menos contraste */
-      filter: invert(90%) hue-rotate(180deg) saturate(0.7) brightness(0.85) contrast(1.05);
-      /* Para mejorar la suavidad en algunos navegadores */
-      transform: translateZ(0);
-    }
-  `}</style>
+.map-dark iframe {
+  filter: invert(90%) hue-rotate(180deg) saturate(0.7) brightness(0.85) contrast(1.05);
+  transform: translateZ(0);
+}
+`}</style>
             </section>
             <section className="relative bg-white py-8 fade-in-section border-y border-gray-200">
                 <div className="relative z-10 overflow-hidden whitespace-nowrap mx-0 md:mx-[104px]">

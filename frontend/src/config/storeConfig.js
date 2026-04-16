@@ -3,7 +3,7 @@ export const storeConfig = {
 
     branding: {
         heroTitle: "Fragancias Árabes Originales",
-        heroSubtitle: "Contamos con stock y variedad permanente",
+        heroSubtitle: "Contamos Con Stock Y Variedad Permanente",
         /*       footerText: "Perfumes árabes originales en Argentina.", */
     },
 
